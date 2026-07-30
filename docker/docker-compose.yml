@@ -1,0 +1,15 @@
+services:
+  postgres:
+    image: postgres:16
+    container_name: finscope-postgres
+    environment:
+      POSTGRES_DB: finscope
+      POSTGRES_USER: finscope
+      POSTGRES_PASSWORD: finscope
+    ports:
+      - "5432:5432"
+    volumes:
+      - finscope-postgres-data:/var/lib/postgresql/data
+
+volumes:
+  finscope-postgres-data:
