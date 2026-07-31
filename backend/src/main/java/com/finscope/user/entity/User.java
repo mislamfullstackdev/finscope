@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
 
-
 @Entity
 @Table(name = "users")
 public class User {
@@ -24,9 +23,25 @@ public class User {
     @Column(name = "updated_at", nullable = false)
     private LocalDateTime updatedAt;
 
+    // No-argument constructor
+    public User() {
+    }   
 
+    @PrePersist
+    public void prePersist() {
+        LocalDateTime now = LocalDateTime.now();
+        createdAt = now;
+        updatedAt = now;            
+    }
 
+    @PreUpdate
+    public void preUpdate() {
+        updatedAt = LocalDateTime.now();
+    }
+
+    // -------------------
     // Getters and Setters
+    //---------------------
     public Long getId() {
         return id;
     }
@@ -41,6 +56,10 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
     }
     
     public void setPassword(String password) {
